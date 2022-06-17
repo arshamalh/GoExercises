@@ -1,0 +1,17 @@
+package primesq
+
+func PrimeSq(limit int) (sequence []int) {
+	for num := 2; num < limit; num++ {
+		isPrime := true
+		for j := 2; j < num; j++ {
+			if num%j == 0 {
+				isPrime = false
+				break
+			}
+		}
+		if isPrime {
+			sequence = append(sequence, num)
+		}
+	}
+	return
+}
