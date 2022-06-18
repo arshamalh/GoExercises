@@ -1,0 +1,59 @@
+package passgen
+
+import (
+	crand "crypto/rand"
+	"encoding/binary"
+	mrand "math/rand"
+	"strconv"
+	"strings"
+)
+
+const (
+	Symbols = "~!@#$%^&*()_+`-={}|[]\\:\"<>?,./"
+)
+
+// Seed random should be called only once per program run
+func SeedRandom() {
+	var b [8]byte
+	crand.Read(b[:])
+	mrand.Seed(int64(binary.LittleEndian.Uint64(b[:])))
+}
+
+// generate a random pass with a given length
+func GeneratePass(pass_len uint8) string {
+	if pass_len < 8 {
+		pass_len = 8
+	}
+	characters := make([]string, pass_len)
+	quart_len := pass_len / 4
+	for i := range characters[:quart_len] {
+		characters[i] = randomLowerCase()
+	}
+	for i := range characters[quart_len : 2*quart_len] {
+		characters[i+int(quart_len)] = randomUpperCase()
+	}
+	for i := range characters[2*quart_len : 3*quart_len] {
+		characters[i+int(quart_len)*2] = strconv.Itoa(mrand.Intn(10))
+	}
+	for i := range characters[3*quart_len : pass_len] {
+		characters[i+int(quart_len)*3] = randomSymbol()
+	}
+	mrand.Shuffle(int(pass_len), func(i, j int) {
+		characters[i], characters[j] = characters[j], characters[i]
+	})
+	return strings.Join(characters, "")
+}
+
+func randomUpperCase() string {
+	i := mrand.Intn(26)
+	return string(rune('A' + i))
+}
+
+func randomLowerCase() string {
+	i := mrand.Intn(26)
+	return string(rune('a' + i))
+}
+
+func randomSymbol() string {
+	return string(Symbols[mrand.Intn(len(Symbols))])
+}
