@@ -1,0 +1,11 @@
+func IsPalindrome(word string) bool {
+	detector := true
+	for i, char := range word[:len(word)/2] {
+		symmetric_char := rune(word[len(word)-(i+1)])
+		if char != symmetric_char {
+			detector = false
+			break
+		}
+	}
+	return detector
+}
