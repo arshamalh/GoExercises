@@ -1,0 +1,58 @@
+package fibonacci
+
+func FibonacciLoop(num int) int {
+	if num <= 1 {
+		return num
+	}
+	n2, n1 := 0, 1
+	for i := 2; i < num; i++ {
+		n2, n1 = n1, n1+n2
+	}
+	return n2 + n1
+}
+
+func FibonacciRecursive(n int) int {
+	if n < 2 {
+		return n
+	}
+	return FibonacciRecursive(n-1) + FibonacciRecursive(n-2)
+}
+
+func FibonacciRecursiveGoRoutine(n int) int {
+	if n < 2 {
+		return n
+	}
+
+	chfibo_1, chfibo_0 := make(chan int), make(chan int)
+
+	go func(f chan int) {
+		f <- FibonacciRecursive(n - 1)
+	}(chfibo_1)
+
+	go func(f chan int) {
+		f <- FibonacciRecursive(n - 2)
+	}(chfibo_0)
+
+	f1, f0 := <-chfibo_1, <-chfibo_0
+
+	return f1 + f0
+}
+
+func FibonacciRecursiveContinuousGoRoutine(n int) int {
+	if n < 2 {
+		return n
+	}
+
+	chfibo_1, chfibo_0 := make(chan int), make(chan int)
+
+	go func(f chan int) {
+		f <- FibonacciRecursiveContinuousGoRoutine(n - 1)
+	}(chfibo_1)
+	go func(f chan int) {
+		f <- FibonacciRecursiveContinuousGoRoutine(n - 2)
+	}(chfibo_0)
+
+	f1, f0 := <-chfibo_1, <-chfibo_0
+
+	return f1 + f0
+}
