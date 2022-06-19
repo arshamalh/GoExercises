@@ -1,0 +1,8 @@
+func FiboSqLoop(limit int) (seq []int) {
+	f0, f1 := 0, 1
+	for f0 < limit {
+		seq = append(seq, f0)
+		f0, f1 = f1, f0+f1
+	}
+	return
+}
