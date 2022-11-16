@@ -51,7 +51,7 @@ func TestSort(t *testing.T) {
 
 	for i, test := range test_cases {
 		t.Run(fmt.Sprintf("test %d", i), func(t *testing.T) {
-			got := MergeSort(test.given)
+			got := QuickSort(test.given)
 			assert.Equal(test.want, got)
 		})
 	}
@@ -100,4 +100,31 @@ func TestMerge(t *testing.T) {
 			assert.Equal(test.expected, got)
 		})
 	}
+}
+
+func TestDivider(t *testing.T) {
+	assert := assert.New(t)
+	merge_test_cases := []struct {
+		given       []int
+		expected_pp int
+		expected_ls []int
+		expected_rs []int
+	}{
+		{
+			given:       []int{0, 1},
+			expected_pp: 0,
+			expected_ls: []int{},
+			expected_rs: []int{1},
+		},
+	}
+
+	for i, test := range merge_test_cases {
+		t.Run(fmt.Sprintf("test %d", i), func(t *testing.T) {
+			got_pp, got_ls, got_rs := Divider(test.given)
+			assert.Equal(test.expected_pp, got_pp)
+			assert.Equal(test.expected_ls, got_ls)
+			assert.Equal(test.expected_rs, got_rs)
+		})
+	}
+
 }
