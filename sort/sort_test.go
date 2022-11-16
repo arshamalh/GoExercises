@@ -50,10 +50,16 @@ func TestSort(t *testing.T) {
 	assert := assert.New(t)
 
 	for i, test := range test_cases {
-		t.Run(fmt.Sprintf("test %d", i), func(t *testing.T) {
+		t.Run(fmt.Sprintf("Quick Sort %d", i), func(t *testing.T) {
 			got := QuickSort(test.given)
 			assert.Equal(test.want, got)
 		})
+
+		t.Run(fmt.Sprintf("Radix Sort %d", i), func(t *testing.T) {
+			got := RadixSort(Floater(test.given))
+			assert.Equal(test.want, UnFloater(got))
+		})
+
 	}
 }
 
