@@ -1,4 +1,4 @@
-package basicsort
+package sort
 
 // One of the famous sorting algorithms
 func InsertionSort(array []int) []int {

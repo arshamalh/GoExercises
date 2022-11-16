@@ -1,4 +1,4 @@
-package basicsort
+package sort
 
 import (
 	"fmt"
