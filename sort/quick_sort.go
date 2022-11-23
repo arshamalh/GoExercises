@@ -27,6 +27,7 @@ func Divider(array []int) (pp int, left []int, right []int) {
 	return pp, array[:pp], array[pp+1:]
 }
 
+// Not completely implemented, it will get custom pivot point
 func DividerPivot(array []int, pp int) (left []int, right []int) {
 	count := 0
 	for i := 0; i < len(array); i++ {
