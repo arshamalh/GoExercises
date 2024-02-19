@@ -1,0 +1,12 @@
+package justevensrecursively
+
+func JustEvens(all []int) []int {
+	if len(all) == 0 {
+		return all
+	}
+	evens := JustEvens(all[1:])
+	if num := all[0]; num%2 == 0 {
+		return append(evens, num)
+	}
+	return evens
+}

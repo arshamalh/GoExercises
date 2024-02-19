@@ -1,0 +1,10 @@
+package uniquepaths
+
+// Count the number of unique paths
+func UniquePaths(rows, columns int) int {
+	if rows == 1 || columns == 1 {
+		return 1
+	}
+	paths := UniquePaths(rows, columns-1) + UniquePaths(rows-1, columns)
+	return paths
+}

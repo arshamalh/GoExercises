@@ -1,0 +1,8 @@
+package findxrecursively
+
+func Find(str string) int {
+	if str[0] == 'x' {
+		return 0
+	}
+	return Find(str[1:]) + 1
+}

@@ -1,0 +1,8 @@
+package countcharsrecursively
+
+func Count(words []string) int {
+	if len(words) == 1 {
+		return len(words[0])
+	}
+	return Count(words[1:]) + len(words[0])
+}
