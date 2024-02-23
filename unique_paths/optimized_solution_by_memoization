@@ -1,0 +1,19 @@
+package uniquepaths
+
+import "fmt"
+
+var memoized = make(map[string]int)
+
+// Count the number of unique paths
+func UniquePaths(rows, columns int) int {
+	if rows == 1 || columns == 1 {
+		return 1
+	}
+	id := fmt.Sprintf("%d:%d", rows, columns)
+	if val, ok := memoized[id]; ok {
+		return val
+	}
+	paths := UniquePaths(rows, columns-1) + UniquePaths(rows-1, columns)
+	memoized[id] = paths
+	return paths
+}

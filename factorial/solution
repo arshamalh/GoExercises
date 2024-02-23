@@ -11,7 +11,7 @@ func Factorial(num uint) uint {
 }
 
 // Recursive Solution
-func Factorial(num uint) uint {
+func FactorialRecursive(num uint) uint {
 	if num == 0 {
 		return 1
 	}

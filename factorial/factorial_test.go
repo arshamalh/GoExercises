@@ -24,6 +24,13 @@ func TestFactorial(t *testing.T) {
 			t.Errorf("Factorial(%d) = %d, expected %d", test.num, actual, test.expected)
 		}
 	}
+
+	for _, test := range tests {
+		actual := factorial.FactorialRecursive(test.num)
+		if actual != test.expected {
+			t.Errorf("Factorial(%d) = %d, expected %d", test.num, actual, test.expected)
+		}
+	}
 }
 
 func BenchmarkFactorial(b *testing.B) {

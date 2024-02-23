@@ -45,13 +45,19 @@ func TestFibonacciRecursiveContinuousGoRoutine(t *testing.T) {
 
 func BenchmarkFibonacciLoop(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		FibonacciLoop(15)
+		FibonacciLoop(30)
 	}
 }
 
 func BenchmarkFibonacciRecursive(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		FibonacciRecursive(15)
+		FibonacciRecursive(30)
+	}
+}
+
+func BenchmarkFibonacciRecursiveOptimized(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		FibonacciRecursiveOptimized(30)
 	}
 }
 
