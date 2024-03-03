@@ -23,12 +23,13 @@ type Array []int
 
 // Sorted Insert algorithm which inserts new items in order.
 func (arr *Array) SortedInsert(item int) {
-	*arr = append(*arr, item)
-	for i := len(*arr) - 2; 0 <= i; i-- {
-		current := (*arr)[i]
+	newArr := append(*arr, item)
+	for i := len(newArr) - 2; 0 <= i; i-- {
+		current := newArr[i]
 		if item < current {
-			(*arr)[i+1] = current
-			(*arr)[i] = item
+			newArr[i+1] = current
+			newArr[i] = item
 		}
 	}
+	*arr = newArr
 }

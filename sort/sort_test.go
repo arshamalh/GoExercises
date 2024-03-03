@@ -3,8 +3,10 @@ package sort
 import (
 	"fmt"
 	"math/rand"
+	"slices"
 	"testing"
 
+	"github.com/go-faker/faker/v4"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -46,20 +48,36 @@ func TestIsSorted(t *testing.T) {
 	assert.Equal(true, isSorted(array))
 }
 
-func TestSort(t *testing.T) {
+func TestRadixSort(t *testing.T) {
 	assert := assert.New(t)
 
 	for i, test := range test_cases {
-		t.Run(fmt.Sprintf("Quick Sort %d", i), func(t *testing.T) {
-			got := QuickSort(test.given)
-			assert.Equal(test.want, got)
-		})
-
-		t.Run(fmt.Sprintf("Radix Sort %d", i), func(t *testing.T) {
+		t.Run(fmt.Sprintf("%d-%s", i, test.name), func(t *testing.T) {
 			got := RadixSort(Floater(test.given))
 			assert.Equal(test.want, UnFloater(got))
 		})
+	}
+}
 
+func TestQuickSort(t *testing.T) {
+	assert := assert.New(t)
+
+	for i, test := range test_cases {
+		t.Run(fmt.Sprintf("%d-%s", i, test.name), func(t *testing.T) {
+			got := QuickSort(test.given)
+			assert.Equal(test.want, got)
+		})
+	}
+}
+
+func TestInsertionSort(t *testing.T) {
+	assert := assert.New(t)
+
+	for i, test := range test_cases {
+		t.Run(fmt.Sprintf("%d-%s", i, test.name), func(t *testing.T) {
+			got := InsertionSort(test.given)
+			assert.Equal(test.want, got)
+		})
 	}
 }
 
@@ -94,7 +112,7 @@ func TestMerge(t *testing.T) {
 			expected:   []int{1, 3},
 		},
 		{
-			// Merge function should work, altough, this scenario should not happen in Merge sort itself.
+			// Merge function should work, although, this scenario should not happen in Merge sort itself.
 			left_side:  []int{5, -1},
 			right_side: []int{2, 1, 0},
 			expected:   []int{2, 1, 0, 5, -1},
@@ -132,5 +150,27 @@ func TestDivider(t *testing.T) {
 			assert.Equal(test.expected_rs, got_rs)
 		})
 	}
+}
 
+var llArr, _ = faker.RandomInt(1, 100, 1000)
+
+// *** Benchmarks *** //
+func BenchmarkInsertionSort(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		InsertionSort(llArr)
+	}
+}
+
+func BenchmarkQuickSort(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		QuickSort(llArr)
+	}
+}
+
+func BenchmarkNativeSort(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		slices.SortStableFunc(llArr, func(a, b int) int {
+			return a - b
+		})
+	}
 }

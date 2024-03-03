@@ -10,26 +10,26 @@ func MergeSort(array []int) []int {
 	return Merge(left_side, right_side)
 }
 
-func Merge(arleft []int, aright []int) (result []int) {
+func Merge(arrLeft []int, arrRight []int) (result []int) {
 	i, j := 0, 0
-	ll, lr := len(arleft), len(aright)
+	lenLeftArr, lenRightArr := len(arrLeft), len(arrRight)
 
 	// Comparing Values one by one of both arrays
-	for i < ll && j < lr {
-		if arleft[i] < aright[j] {
-			result = append(result, arleft[i])
+	for i < lenLeftArr && j < lenRightArr {
+		if arrLeft[i] < arrRight[j] {
+			result = append(result, arrLeft[i])
 			i++
 		} else {
-			result = append(result, aright[j])
+			result = append(result, arrRight[j])
 			j++
 		}
 	}
 
 	// Finding remaining included array and appending the rest to the result.
-	if i < ll {
-		return append(result, arleft[i:]...)
-	} else if j < lr {
-		return append(result, aright[j:]...)
+	if i < lenLeftArr {
+		return append(result, arrLeft[i:]...)
+	} else if j < lenRightArr {
+		return append(result, arrRight[j:]...)
 	}
 
 	return result
