@@ -12,7 +12,7 @@ func QuickSelectHighest(array []int, nthHighest int) int {
 	pp, leftArr, rightArr := Divider(array)
 	index := len(array) - nthHighest
 	if index < pp {
-		return QuickSelectHighest(leftArr, nthHighest-len(rightArr)-1)
+		return QuickSelectHighest(leftArr, pp-index)
 	}
 	if index > pp {
 		return QuickSelectHighest(rightArr, nthHighest)
